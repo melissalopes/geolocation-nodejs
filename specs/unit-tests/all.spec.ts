@@ -5,32 +5,19 @@ import * as supertest from 'supertest';
 import * as sinon from 'sinon';
 import { faker } from '@faker-js/faker';
 import { expect, assert } from 'chai';
-
-import '../src/config/database';
 import {
     Region,
     RegionModel,
     UserModel,
-} from '../src/repositories/model/models';
-import GeoLib from '../src/lib/lib';
-import server from '../server';
+} from '../../src/repository/model/models';
+import GeoLib from '../../src/service/geo.service';
+import server from '../../server';
 
 describe('Models', () => {
     let user;
     let session;
-    let geoLibStub: Partial<typeof GeoLib> = {};
 
     before(async () => {
-        geoLibStub.getAddressFromCoordinates = sinon
-            .stub(GeoLib, 'getAddressFromCoordinates')
-            .resolves(faker.location.streetAddress({ useFullAddress: true }));
-        geoLibStub.getCoordinatesFromAddress = sinon
-            .stub(GeoLib, 'getCoordinatesFromAddress')
-            .resolves({
-                lat: faker.location.latitude(),
-                lng: faker.location.longitude(),
-            });
-
         session = await mongoose.startSession();
         user = await UserModel.create({
             name: faker.person.firstName(),
