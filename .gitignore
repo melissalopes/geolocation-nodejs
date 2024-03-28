@@ -1,1 +1,8 @@
-./node_modules
+# package directories
+node_modules
+package-lock
+
+# environment variables
+.env
+.log
+.dist
