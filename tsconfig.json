@@ -4,9 +4,12 @@
     "target": "es2020",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "declaration": true,
+    "strict": false,
   },
   "types": ["reflect-metadata", "mocha"],
+  "include": ["src/**/*", "specs/**/*", "server.ts"],
   "exclude": [
     "node_modules"
   ]
