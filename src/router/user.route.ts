@@ -1,5 +1,5 @@
 import * as app from 'express';
-import { UserModel } from '../repositories/model';
+import { UserModel } from '../repository/model';
 
 const userRouter = app.Router();
 
