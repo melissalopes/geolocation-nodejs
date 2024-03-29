@@ -1,6 +1,7 @@
 # package directories
 node_modules
 package-lock
+dist
 
 # environment variables
 .env

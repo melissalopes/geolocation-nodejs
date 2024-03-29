@@ -7,10 +7,12 @@
     "sourceMap": true,
     "declaration": true,
     "strict": false,
+    "outDir": "dist"
   },
   "types": ["reflect-metadata", "mocha"],
   "include": ["src/**/*", "specs/**/*", "server.ts"],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

@@ -6,8 +6,10 @@
     "scripts": {
         "build": "tsc",
         "dev": "nodemon server.ts",
-        "start": "node server.ts",
-        "test": "jest --no-cache --ci --verbose",
+        "start": "node ./dist/server.js",
+        "jest": "jest --no-cache --ci --verbose",
+        "mocha": "mocha --require ts-node/register ./specs/**/*.spec.ts --exit",
+        "test": "npm run mocha -- ./dist/specs/",
         "lint": "eslint . --ext .ts",
         "prepare": "husky"
     },
