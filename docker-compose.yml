@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-technical-volume:/data/db
+    restart: always
+
+  api:
+    container_name: api-technical-assessment
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+
+volumes:
+  mongodb-technical-volume:
