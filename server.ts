@@ -4,10 +4,13 @@ import { DatabaseConfig } from './src/config';
 import routes from './src/router/index';
 
 const server = app();
+server.use(app.json());
 
 const dataBaseConfig = new DatabaseConfig();
 dataBaseConfig.connect();
 
 server.use('/api', routes);
 
-server.listen(ServerEnvs.PORT, async () => console.log('Server online'));
+server.listen(ServerEnvs.PORT, () => console.log('Server online'));
+
+export default server;
