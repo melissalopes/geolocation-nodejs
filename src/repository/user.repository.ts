@@ -49,4 +49,15 @@ export class UserRepository {
             throw error;
         }
     }
+
+    async list(): Promise<Array<UserRespDTO>> {
+        try {
+            console.log('Calling UserRepository.list');
+
+            return await UserModel.find();
+        } catch (error) {
+            console.log('Error in UserRepository.list', error);
+            throw error;
+        }
+    }
 }

@@ -72,4 +72,15 @@ export class UserLogic {
             throw error;
         }
     }
+
+    async list(): Promise<Array<UserRespDTO>> {
+        try {
+            console.log('Calling UserLogic.list');
+
+            return await this.userRepository.list();
+        } catch (error) {
+            console.log('Error in UserLogic.list', error);
+            throw error;
+        }
+    }
 }

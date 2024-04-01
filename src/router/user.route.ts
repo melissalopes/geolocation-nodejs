@@ -25,4 +25,9 @@ userRouter.delete(
     async (req, res) => await userHandler.deleteHandle(req, res)
 );
 
+userRouter.get(
+    '/',
+    async (req, res) => await userHandler.getAllHandle(req, res)
+);
+
 export default userRouter;

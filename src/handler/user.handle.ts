@@ -98,4 +98,24 @@ export class UserHandler {
             });
         }
     }
+
+    public async getAllHandle(req, res): Promise<void> {
+        try {
+            console.log('Calling UserHandler.getAllHandle');
+
+            const logic = new UserLogic();
+            const response = await logic.list();
+
+            const message = UserSuccessMessagesConstants.FOUND_LIST;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.OK).json({ message, response });
+        } catch (error) {
+            console.log('Error in UserHandler.getAllHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }
