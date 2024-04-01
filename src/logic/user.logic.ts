@@ -18,13 +18,13 @@ export class UserLogic {
         try {
             console.log('Calling UserLogic.create', data);
 
-            if (data.coordinates)
+            if (!data.address)
                 data.address =
                     await this.geoService.getAddressFromCoordinates(
                         coordinates
                     );
 
-            if (data.address)
+            if (!data.coordinates)
                 data.coordinates =
                     await this.geoService.getCoordinatesFromAddress(address);
 
