@@ -61,4 +61,15 @@ export class UserLogic {
             throw error;
         }
     }
+
+    async delete(userId: string): Promise<any> {
+        try {
+            console.log('Calling UserLogic.delete', userId);
+
+            return await this.userRepository.delete(userId);
+        } catch (error) {
+            console.log('Error in UserLogic.delete', error);
+            throw error;
+        }
+    }
 }

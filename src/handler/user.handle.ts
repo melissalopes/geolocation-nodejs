@@ -75,4 +75,27 @@ export class UserHandler {
             });
         }
     }
+
+    public async deleteHandle(req, res): Promise<void> {
+        const payload = req.params;
+        try {
+            console.log('Calling UserHandler.deleteHandle', payload);
+
+            ValidationUtils.validate(UserSchema.DELETE, payload);
+
+            const logic = new UserLogic();
+            const response = await logic.delete(payload.id);
+
+            const message = UserSuccessMessagesConstants.DELETED;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.OK).json({ message, response });
+        } catch (error) {
+            console.log('Error in UserHandler.deleteHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }

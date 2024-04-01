@@ -38,4 +38,15 @@ export class UserRepository {
             throw error;
         }
     }
+
+    async delete(id: string): Promise<any> {
+        try {
+            console.log('Calling UserRepository.delete', id);
+
+            return await UserModel.deleteOne({ userId: id });
+        } catch (error) {
+            console.log('Error in UserRepository.delete', error);
+            throw error;
+        }
+    }
 }

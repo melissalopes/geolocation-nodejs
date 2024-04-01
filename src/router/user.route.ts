@@ -20,4 +20,9 @@ userRouter.patch(
     async (req, res) => await userHandler.updateHandle(req, res)
 );
 
+userRouter.delete(
+    '/:id',
+    async (req, res) => await userHandler.deleteHandle(req, res)
+);
+
 export default userRouter;
