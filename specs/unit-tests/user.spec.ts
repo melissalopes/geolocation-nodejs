@@ -1,4 +1,4 @@
-import * as statusCodes from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import * as supertest from 'supertest';
 import server from '../../server';
 import { UserHandler } from '../../src/handler';
@@ -42,7 +42,27 @@ describe('User Model', () => {
         const handler = new UserHandler();
         await handler.createHandle(req, res);
 
-        expect(res.statusCode).toEqual(statusCodes.BAD_REQUEST);
+        expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(res.json.message).toEqual('"userId" is required');
+    });
+
+    it('Should create an user w/ address and return correct status code', async () => {
+        await initServer.post(`/api/users`);
+
+        const res = mockResponse();
+        const req = mockRequest({
+            userId: '1',
+            name: 'Roberto',
+            email: 'roberto.lopes@gmail.com',
+            address: 'Maria Aparecida Datovo, 478',
+        });
+
+        const handler = new UserHandler();
+        await handler.createHandle(req, res);
+
+        const response = res.json.response;
+        expect(res.statusCode).toEqual(StatusCodes.CREATED);
+        expect(response.address).toBeDefined();
+        expect(response.coordinates).toBeDefined();
     });
 });
