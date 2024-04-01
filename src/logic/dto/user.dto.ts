@@ -1,5 +1,6 @@
 interface UserDTO {
-    userId: string;
+    _id?: string;
+    userId: number;
     name: string;
     email: string;
     address?: string;
