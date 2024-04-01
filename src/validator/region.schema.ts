@@ -12,6 +12,7 @@ export const GetRegionSchema = Joi.object({
 
 export const UpdateRegionSchema = Joi.object({
     id: Joi.string().required(),
+    name: Joi.string().required(),
 }).required();
 
 export const DeleteRegionSchema = Joi.object({

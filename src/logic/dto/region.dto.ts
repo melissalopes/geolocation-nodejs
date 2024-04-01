@@ -9,5 +9,5 @@ export interface RegionRespDTO extends RegionDTO {}
 
 export interface RegionUpdateReqDTO {
     id: string;
-    userId: string;
+    name: string;
 }

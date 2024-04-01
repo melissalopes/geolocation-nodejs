@@ -1,6 +1,6 @@
 import * as GeoJson from 'geojson';
 import { RegionRepository, UserRepository } from '../repository';
-import { RegionReqDTO } from './dto';
+import { RegionReqDTO, RegionUpdateReqDTO } from './dto';
 import { NotFound } from '../utils';
 import {
     UserErrorMessagesConstants,
@@ -53,6 +53,17 @@ export class RegionLogic {
             return response;
         } catch (error) {
             console.log('Error in RegionLogic.find', error);
+            throw error;
+        }
+    }
+
+    async update(data: RegionUpdateReqDTO): Promise<any> {
+        try {
+            console.log('Calling RegionLogic.update', data);
+
+            return await this.regionRepository.update(data);
+        } catch (error) {
+            console.log('Error in RegionLogic.update', error);
             throw error;
         }
     }

@@ -50,4 +50,29 @@ export class RegionHandler {
             });
         }
     }
+
+    public async updateHandle(req, res): Promise<void> {
+        const { id } = req.params;
+        const { body } = req;
+        try {
+            const payload = { ...body, id };
+            console.log('Calling RegionHandler.updateHandle', payload);
+
+            ValidationUtils.validate(RegionSchema.UPDATE, payload);
+
+            const logic = new RegionLogic();
+            const response = await logic.update(payload);
+
+            const message = RegionSuccessMessagesConstants.UPDATED;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.CREATED).json({ message, response });
+        } catch (error) {
+            console.log('Error in RegionHandler.updateHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }

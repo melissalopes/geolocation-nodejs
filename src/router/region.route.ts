@@ -15,4 +15,9 @@ regionRouter.get(
     async (req, res) => await regionHandler.getHandle(req, res)
 );
 
+regionRouter.patch(
+    '/:id',
+    async (req, res) => await regionHandler.updateHandle(req, res)
+);
+
 export default regionRouter;

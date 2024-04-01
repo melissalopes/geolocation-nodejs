@@ -1,3 +1,4 @@
+import { RegionUpdateReqDTO, UserRespDTO } from '../logic/dto';
 import { RegionModel } from './model';
 
 export class RegionRepository {
@@ -19,6 +20,21 @@ export class RegionRepository {
             return await RegionModel.findOne({ regionId: id });
         } catch (error) {
             console.log('Error in RegionRepository.find', error);
+            throw error;
+        }
+    }
+
+    async update(data: RegionUpdateReqDTO): Promise<any> {
+        try {
+            console.log('Calling UserRepository.update', data);
+
+            return await RegionModel.findOneAndUpdate(
+                { regionId: data.id },
+                { name: data.name },
+                { new: true }
+            );
+        } catch (error) {
+            console.log('Error in UserRepository.update', error);
             throw error;
         }
     }
