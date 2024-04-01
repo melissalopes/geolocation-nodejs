@@ -50,4 +50,29 @@ export class UserHandler {
             });
         }
     }
+
+    public async updateHandle(req, res): Promise<void> {
+        const { id } = req.params;
+        const { body } = req;
+        try {
+            const payload = { ...body, id };
+            console.log('Calling UserHandler.updateHandle', payload);
+
+            ValidationUtils.validate(UserSchema.UPDATE, payload);
+
+            const logic = new UserLogic();
+            const response = await logic.update(payload);
+
+            const message = UserSuccessMessagesConstants.UPDATED;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.CREATED).json({ message, response });
+        } catch (error) {
+            console.log('Error in UserHandler.updateHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }

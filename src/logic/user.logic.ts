@@ -50,4 +50,15 @@ export class UserLogic {
             throw error;
         }
     }
+
+    async update(data: UserUpdateReqDTO): Promise<any> {
+        try {
+            console.log('Calling UserLogic.update', data);
+
+            return await this.userRepository.update(data);
+        } catch (error) {
+            console.log('Error in UserLogic.update', error);
+            throw error;
+        }
+    }
 }

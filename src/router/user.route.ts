@@ -15,4 +15,9 @@ userRouter.get(
     async (req, res) => await userHandler.getHandle(req, res)
 );
 
+userRouter.patch(
+    '/:id',
+    async (req, res) => await userHandler.updateHandle(req, res)
+);
+
 export default userRouter;
