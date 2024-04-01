@@ -4,7 +4,7 @@ import regionRouter from './region.route';
 
 const routes = app.Router();
 
-routes.use('/user', userRouter);
-routes.use('/region', regionRouter);
+routes.use('/users', userRouter);
+routes.use('/regions', regionRouter);
 
 export default routes;
