@@ -34,4 +34,20 @@ export class UserLogic {
             throw error;
         }
     }
+
+    async find(userId: string): Promise<any> {
+        try {
+            console.log('Calling UserLogic.find', userId);
+
+            const response = await this.userRepository.find(userId);
+
+            if (!response)
+                throw new NotFound(UserErrorMessagesConstants.NOT_FOUND);
+
+            return response;
+        } catch (error) {
+            console.log('Error in UserLogic.find', error);
+            throw error;
+        }
+    }
 }

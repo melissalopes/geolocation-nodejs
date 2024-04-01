@@ -27,4 +27,27 @@ export class UserHandler {
             });
         }
     }
+
+    public async getHandle(req, res): Promise<void> {
+        const payload = req.params;
+        try {
+            console.log('Calling UserHandler.getHandle', payload);
+
+            ValidationUtils.validate(UserSchema.GET, payload);
+
+            const logic = new UserLogic();
+            const response = await logic.find(payload.id);
+
+            const message = UserSuccessMessagesConstants.FOUND;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.OK).json({ message, response });
+        } catch (error) {
+            console.log('Error in UserHandler.getHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }

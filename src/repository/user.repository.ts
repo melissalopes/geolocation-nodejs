@@ -12,4 +12,15 @@ export class UserRepository {
             throw error;
         }
     }
+
+    async find(id: string): Promise<UserRespDTO> {
+        try {
+            console.log('Calling UserRepository.find', id);
+
+            return await UserModel.findOne({ userId: id });
+        } catch (error) {
+            console.log('Error in UserRepository.find', error);
+            throw error;
+        }
+    }
 }

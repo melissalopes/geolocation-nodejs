@@ -10,4 +10,9 @@ userRouter.post(
     async (req, res) => await userHandler.createHandle(req, res)
 );
 
+userRouter.get(
+    '/:id',
+    async (req, res) => await userHandler.getHandle(req, res)
+);
+
 export default userRouter;
