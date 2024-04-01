@@ -75,4 +75,27 @@ export class RegionHandler {
             });
         }
     }
+
+    public async deleteHandle(req, res): Promise<void> {
+        const payload = req.params;
+        try {
+            console.log('Calling RegionHandler.deleteHandle', payload);
+
+            ValidationUtils.validate(RegionSchema.DELETE, payload);
+
+            const logic = new RegionLogic();
+            const response = await logic.delete(payload.id);
+
+            const message = RegionSuccessMessagesConstants.DELETED;
+            console.log(`${message}`, response);
+
+            res.status(StatusCodes.OK).json({ message, response });
+        } catch (error) {
+            console.log('Error in RegionHandler.deleteHandle', error);
+
+            res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error.message,
+            });
+        }
+    }
 }

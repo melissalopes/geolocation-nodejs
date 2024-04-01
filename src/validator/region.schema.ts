@@ -7,16 +7,16 @@ export const CreateRegionSchema = Joi.object({
 }).required();
 
 export const GetRegionSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
 }).required();
 
 export const UpdateRegionSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
     name: Joi.string().required(),
 }).required();
 
 export const DeleteRegionSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
 }).required();
 
 export const RegionSchema = {

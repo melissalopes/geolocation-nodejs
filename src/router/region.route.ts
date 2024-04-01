@@ -20,4 +20,9 @@ regionRouter.patch(
     async (req, res) => await regionHandler.updateHandle(req, res)
 );
 
+regionRouter.delete(
+    '/:id',
+    async (req, res) => await regionHandler.deleteHandle(req, res)
+);
+
 export default regionRouter;

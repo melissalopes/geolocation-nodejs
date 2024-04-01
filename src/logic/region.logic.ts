@@ -67,4 +67,15 @@ export class RegionLogic {
             throw error;
         }
     }
+
+    async delete(regionId: number): Promise<any> {
+        try {
+            console.log('Calling RegionLogic.delete', regionId);
+
+            return await this.regionRepository.delete(regionId);
+        } catch (error) {
+            console.log('Error in RegionLogic.delete', error);
+            throw error;
+        }
+    }
 }

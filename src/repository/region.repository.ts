@@ -13,7 +13,7 @@ export class RegionRepository {
         }
     }
 
-    async find(id: string): Promise<any> {
+    async find(id: number): Promise<any> {
         try {
             console.log('Calling RegionRepository.find', id);
 
@@ -26,7 +26,7 @@ export class RegionRepository {
 
     async update(data: RegionUpdateReqDTO): Promise<any> {
         try {
-            console.log('Calling UserRepository.update', data);
+            console.log('Calling RegionRepository.update', data);
 
             return await RegionModel.findOneAndUpdate(
                 { regionId: data.id },
@@ -34,7 +34,18 @@ export class RegionRepository {
                 { new: true }
             );
         } catch (error) {
-            console.log('Error in UserRepository.update', error);
+            console.log('Error in RegionRepository.update', error);
+            throw error;
+        }
+    }
+
+    async delete(id: number): Promise<any> {
+        try {
+            console.log('Calling RegionRepository.delete', id);
+
+            return await RegionModel.deleteOne({ regionId: id });
+        } catch (error) {
+            console.log('Error in RegionRepository.delete', error);
             throw error;
         }
     }
