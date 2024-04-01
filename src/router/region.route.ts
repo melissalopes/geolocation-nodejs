@@ -10,4 +10,9 @@ regionRouter.post(
     async (req, res) => await regionHandler.createHandle(req, res)
 );
 
+regionRouter.get(
+    '/:id',
+    async (req, res) => await regionHandler.getHandle(req, res)
+);
+
 export default regionRouter;

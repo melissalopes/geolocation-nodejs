@@ -2,7 +2,10 @@ import * as GeoJson from 'geojson';
 import { RegionRepository, UserRepository } from '../repository';
 import { RegionReqDTO } from './dto';
 import { NotFound } from '../utils';
-import { UserErrorMessagesConstants } from '../constant';
+import {
+    UserErrorMessagesConstants,
+    RegionErrorMessagesConstants,
+} from '../constant';
 
 export class RegionLogic {
     private regionRepository: RegionRepository;
@@ -34,6 +37,22 @@ export class RegionLogic {
             });
         } catch (error) {
             console.log('Error in RegionLogic.create', error);
+            throw error;
+        }
+    }
+
+    async find(regionId: string): Promise<any> {
+        try {
+            console.log('Calling RegionLogic.find', regionId);
+
+            const response = await this.regionRepository.find(regionId);
+
+            if (!response)
+                throw new NotFound(RegionErrorMessagesConstants.NOT_FOUND);
+
+            return response;
+        } catch (error) {
+            console.log('Error in RegionLogic.find', error);
             throw error;
         }
     }

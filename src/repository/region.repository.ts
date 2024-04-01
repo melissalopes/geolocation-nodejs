@@ -11,4 +11,15 @@ export class RegionRepository {
             throw error;
         }
     }
+
+    async find(id: string): Promise<any> {
+        try {
+            console.log('Calling RegionRepository.find', id);
+
+            return await RegionModel.findOne({ regionId: id });
+        } catch (error) {
+            console.log('Error in RegionRepository.find', error);
+            throw error;
+        }
+    }
 }
