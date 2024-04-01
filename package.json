@@ -7,7 +7,7 @@
         "build": "tsc",
         "dev": "nodemon server.ts",
         "start": "node ./dist/server.js",
-        "jest": "jest --no-cache --ci --verbose",
+        "jest": "jest --no-cache --ci --verbose --forceExit",
         "mocha": "mocha --require ts-node/register ./specs/**/*.spec.ts --exit",
         "test": "npm run mocha -- ./dist/specs/",
         "lint": "eslint . --ext .ts",
@@ -17,6 +17,7 @@
     "license": "ISC",
     "dependencies": {
         "@faker-js/faker": "^8.1.0",
+        "@googlemaps/google-maps-services-js": "^3.3.42",
         "@typegoose/typegoose": "^11.5.0",
         "chai": "^4.3.10",
         "eslint-config-prettier": "^9.1.0",
