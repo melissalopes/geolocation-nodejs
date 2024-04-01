@@ -1,5 +1,4 @@
 interface UserDTO {
-    _id?: string;
     userId: number;
     name: string;
     email: string;
@@ -8,7 +7,9 @@ interface UserDTO {
 }
 export interface UserReqDTO extends UserDTO {}
 
-export interface UserRespDTO extends UserDTO {}
+export interface UserRespDTO extends UserDTO {
+    _id?: string;
+}
 
 export interface UserUpdateReqDTO {
     id: string;
