@@ -65,4 +65,27 @@ describe('User Model', () => {
         expect(response.address).toBeDefined();
         expect(response.coordinates).toBeDefined();
     });
+
+    it('Should create an user w/ coordinates and return correct status code', async () => {
+        await initServer.post(`/api/users`);
+
+        const res = mockResponse();
+        const req = mockRequest({
+            userId: '1',
+            name: 'Roberto',
+            email: 'roberto.lopes@gmail.com',
+            coordinates: {
+                lat: -23.513803,
+                lng: -46.3684184,
+            },
+        });
+
+        const handler = new UserHandler();
+        await handler.createHandle(req, res);
+
+        const response = res.json.response;
+        expect(res.statusCode).toEqual(StatusCodes.CREATED);
+        expect(response.address).toBeDefined();
+        expect(response.coordinates).toBeDefined();
+    });
 });
