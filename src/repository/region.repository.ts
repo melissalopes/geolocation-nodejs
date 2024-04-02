@@ -1,8 +1,13 @@
-import { RegionUpdateReqDTO, UserRespDTO } from '../logic/dto';
+import {
+    ListRegionDTO,
+    RegionReqDTO,
+    RegionRespDTO,
+    RegionUpdateReqDTO,
+} from '../logic/dto';
 import { RegionModel } from './model';
 
 export class RegionRepository {
-    async create(data: any): Promise<any> {
+    async create(data: RegionReqDTO): Promise<any> {
         try {
             console.log('Calling RegionRepository.create', data);
 
@@ -13,7 +18,7 @@ export class RegionRepository {
         }
     }
 
-    async find(id: number): Promise<any> {
+    async find(id: number): Promise<RegionRespDTO> {
         try {
             console.log('Calling RegionRepository.find', id);
 
@@ -24,7 +29,7 @@ export class RegionRepository {
         }
     }
 
-    async update(data: RegionUpdateReqDTO): Promise<any> {
+    async update(data: RegionUpdateReqDTO): Promise<RegionRespDTO> {
         try {
             console.log('Calling RegionRepository.update', data);
 
@@ -46,6 +51,54 @@ export class RegionRepository {
             return await RegionModel.deleteOne({ regionId: id });
         } catch (error) {
             console.log('Error in RegionRepository.delete', error);
+            throw error;
+        }
+    }
+
+    async list(): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionRepository.list');
+
+            const result = await RegionModel.find();
+
+            return result;
+        } catch (error) {
+            console.log('Error in RegionRepository.list', error);
+            throw error;
+        }
+    }
+
+    async listNearLocations(
+        data: ListRegionDTO
+    ): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionRepository.listNearLocations', data);
+
+            const result = await RegionModel.find({
+                coordinates: { $near: data.coordinates },
+            });
+
+            return result;
+        } catch (error) {
+            console.log('Error in RegionRepository.listNearLocations', error);
+            throw error;
+        }
+    }
+
+    async listSpecificLocations(
+        data: ListRegionDTO
+    ): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionRepository.listSpecificLocations', data);
+
+            const result = await RegionModel.find(data);
+
+            return result;
+        } catch (error) {
+            console.log(
+                'Error in RegionRepository.listSpecificLocations',
+                error
+            );
             throw error;
         }
     }

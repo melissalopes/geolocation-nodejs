@@ -1,6 +1,11 @@
 import * as GeoJson from 'geojson';
 import { RegionRepository, UserRepository } from '../repository';
-import { RegionReqDTO, RegionUpdateReqDTO } from './dto';
+import {
+    ListRegionDTO,
+    RegionReqDTO,
+    RegionRespDTO,
+    RegionUpdateReqDTO,
+} from './dto';
 import { NotFound } from '../utils';
 import {
     UserErrorMessagesConstants,
@@ -16,7 +21,7 @@ export class RegionLogic {
         this.userRepository = new UserRepository();
     }
 
-    async create(data: RegionReqDTO): Promise<any> {
+    async create(data: RegionReqDTO): Promise<RegionRespDTO> {
         const { regionId, name, userId } = data;
         try {
             console.log('Calling RegionLogic.create', data);
@@ -33,7 +38,8 @@ export class RegionLogic {
                 regionId,
                 user: user._id,
                 name,
-                region,
+                type: region.geometry.type,
+                coordinates: region.geometry.coordinates,
             });
         } catch (error) {
             console.log('Error in RegionLogic.create', error);
@@ -41,7 +47,7 @@ export class RegionLogic {
         }
     }
 
-    async find(regionId: string): Promise<any> {
+    async find(regionId: number): Promise<RegionRespDTO> {
         try {
             console.log('Calling RegionLogic.find', regionId);
 
@@ -57,7 +63,7 @@ export class RegionLogic {
         }
     }
 
-    async update(data: RegionUpdateReqDTO): Promise<any> {
+    async update(data: RegionUpdateReqDTO): Promise<RegionRespDTO> {
         try {
             console.log('Calling RegionLogic.update', data);
 
@@ -72,9 +78,68 @@ export class RegionLogic {
         try {
             console.log('Calling RegionLogic.delete', regionId);
 
-            return await this.regionRepository.delete(regionId);
+            const response = await this.regionRepository.delete(regionId);
+
+            if (!response.deletedCount)
+                throw new NotFound(RegionErrorMessagesConstants.ID_NOT_FOUND);
+
+            return response;
         } catch (error) {
             console.log('Error in RegionLogic.delete', error);
+            throw error;
+        }
+    }
+
+    async list(): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionLogic.list');
+
+            const response = await this.regionRepository.list();
+
+            if (!response.length)
+                throw new NotFound(RegionErrorMessagesConstants.LIST_NOT_FOUND);
+
+            return response;
+        } catch (error) {
+            console.log('Error in RegionLogic.list', error);
+            throw error;
+        }
+    }
+
+    async listNearLocations(
+        data: ListRegionDTO
+    ): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionLogic.listNearLocations', data);
+
+            const response =
+                await this.regionRepository.listNearLocations(data);
+
+            if (!response.length)
+                throw new NotFound(RegionErrorMessagesConstants.LIST_NOT_FOUND);
+
+            return await this.regionRepository.listNearLocations(data);
+        } catch (error) {
+            console.log('Error in RegionLogic.listNearLocations', error);
+            throw error;
+        }
+    }
+
+    async listSpecificLocations(
+        data: ListRegionDTO
+    ): Promise<Array<RegionRespDTO>> {
+        try {
+            console.log('Calling RegionLogic.listSpecificLocations', data);
+
+            const response =
+                await this.regionRepository.listSpecificLocations(data);
+
+            if (!response.length)
+                throw new NotFound(RegionErrorMessagesConstants.LIST_NOT_FOUND);
+
+            return await this.regionRepository.listSpecificLocations(data);
+        } catch (error) {
+            console.log('Error in RegionLogic.listSpecificLocations', error);
             throw error;
         }
     }

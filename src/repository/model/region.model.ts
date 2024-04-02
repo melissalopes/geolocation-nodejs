@@ -8,7 +8,6 @@ import {
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { User } from './user.model';
 import ObjectId = mongoose.Types.ObjectId;
-import { RegionReqDTO } from '../../logic/dto';
 
 class Base extends TimeStamps {
     @Prop({ required: true, default: () => new ObjectId().toString() })
@@ -27,7 +26,10 @@ export class Region extends Base {
     user: Ref<User>;
 
     @Prop({ required: true })
-    region: RegionReqDTO;
+    type: string;
+
+    @Prop({ required: true })
+    coordinates: Array<number>;
 }
 
 export const RegionModel = getModelForClass(Region);

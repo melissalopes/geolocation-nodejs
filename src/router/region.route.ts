@@ -25,4 +25,19 @@ regionRouter.delete(
     async (req, res) => await regionHandler.deleteHandle(req, res)
 );
 
+regionRouter.get(
+    '/',
+    async (req, res) => await regionHandler.getAllHandle(req, res)
+);
+
+regionRouter.get(
+    '/coordinates/near',
+    async (req, res) => await regionHandler.getNearLocationsHandle(req, res)
+);
+
+regionRouter.get(
+    '/coordinates/point',
+    async (req, res) => await regionHandler.getSpecificLocationsHandle(req, res)
+);
+
 export default regionRouter;
