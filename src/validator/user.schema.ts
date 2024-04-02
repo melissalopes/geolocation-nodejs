@@ -14,16 +14,16 @@ export const CreateUserSchema = Joi.object({
 }).required();
 
 export const GetUserSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
 }).required();
 
 export const UpdateUserSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
     name: Joi.string().required(),
 }).required();
 
 export const DeleteUserSchema = Joi.object({
-    id: Joi.string().required(),
+    id: Joi.number().required(),
 }).required();
 
 export const UserSchema = {

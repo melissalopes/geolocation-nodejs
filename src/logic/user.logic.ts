@@ -35,7 +35,7 @@ export class UserLogic {
         }
     }
 
-    async find(userId: string): Promise<any> {
+    async find(userId: number): Promise<any> {
         try {
             console.log('Calling UserLogic.find', userId);
 
@@ -62,7 +62,7 @@ export class UserLogic {
         }
     }
 
-    async delete(userId: string): Promise<any> {
+    async delete(userId: number): Promise<any> {
         try {
             console.log('Calling UserLogic.delete', userId);
 

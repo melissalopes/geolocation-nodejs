@@ -13,7 +13,7 @@ export class UserRepository {
         }
     }
 
-    async find(id: string): Promise<UserRespDTO> {
+    async find(id: number): Promise<UserRespDTO> {
         try {
             console.log('Calling UserRepository.find', id);
 
@@ -39,7 +39,7 @@ export class UserRepository {
         }
     }
 
-    async delete(id: string): Promise<any> {
+    async delete(id: number): Promise<any> {
         try {
             console.log('Calling UserRepository.delete', id);
 

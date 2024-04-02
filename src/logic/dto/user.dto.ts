@@ -12,6 +12,6 @@ export interface UserRespDTO extends UserDTO {
 }
 
 export interface UserUpdateReqDTO {
-    id: string;
+    id: number;
     name: string;
 }
