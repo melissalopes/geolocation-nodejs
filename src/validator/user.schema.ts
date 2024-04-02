@@ -6,11 +6,15 @@ export const CreateUserSchema = Joi.object({
     email: Joi.string()
         .email({ minDomainSegments: 2, tlds: { allow: ['com'] } })
         .required(),
-    address: Joi.string(),
-    coordinates: {
+    address: Joi.when('coordinates', {
+        is: Joi.exist(),
+        then: Joi.forbidden(),
+        otherwise: Joi.string().required(),
+    }),
+    coordinates: Joi.object({
         lat: Joi.number(),
         lng: Joi.number(),
-    },
+    }),
 }).required();
 
 export const GetUserSchema = Joi.object({
@@ -32,5 +36,3 @@ export const UserSchema = {
     UPDATE: UpdateUserSchema,
     DELETE: DeleteUserSchema,
 };
-
-// ! fazer regra de negocio do Endereço ou Coordenadas
