@@ -12,4 +12,8 @@ export class RegionSuccessMessagesConstants {
 
 export class RegionErrorMessagesConstants {
     static readonly NOT_FOUND = 'Region not found!';
+
+    static readonly ID_NOT_FOUND = 'Region id does not exist!';
+
+    static readonly LIST_NOT_FOUND = 'Regions not found!';
 }
