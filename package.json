@@ -9,7 +9,7 @@
         "start": "node ./dist/server.js",
         "jest": "jest --no-cache --ci --verbose --runInBand --forceExit",
         "mocha": "mocha --require ts-node/register ./specs/**/*.spec.ts --exit",
-        "test": "npm run mocha -- ./dist/specs/",
+        "test": "npm run jest",
         "lint": "eslint . --ext .ts",
         "prepare": "husky"
     },
