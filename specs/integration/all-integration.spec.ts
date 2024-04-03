@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import * as supertest from 'supertest';
 import server from '../../server';
-import { UserIntegrationTestMock, RegionIntegrationTestMock } from '../mocks';
+import { UserMock, RegionMock } from '../mocks';
 import {
     UserSuccessMessagesConstants,
     RegionSuccessMessagesConstants,
@@ -14,7 +14,7 @@ describe('User integration tests', () => {
     it('Should create an user w/ address and return correct status code', async () => {
         const response = await initServer
             .post(`/api/users`)
-            .send(UserIntegrationTestMock.createWithAddress);
+            .send(UserMock.createWithAddress);
 
         expect(response.statusCode).toEqual(StatusCodes.CREATED);
         expect(response.body.message).toEqual(
@@ -27,7 +27,7 @@ describe('User integration tests', () => {
     it('Should create an user w/ coordinates and return correct status code', async () => {
         const response = await initServer
             .post(`/api/users`)
-            .send(UserIntegrationTestMock.createWithCoordinates);
+            .send(UserMock.createWithCoordinates);
 
         expect(response.statusCode).toEqual(StatusCodes.CREATED);
         expect(response.body.message).toEqual(
@@ -87,7 +87,7 @@ describe('Region integration tests', () => {
     it('Should create a region', async () => {
         const response = await initServer
             .post('/api/regions/')
-            .send(RegionIntegrationTestMock.create);
+            .send(RegionMock.create);
 
         expect(response).toBeDefined();
         expect(response.status).toEqual(StatusCodes.CREATED);
@@ -146,7 +146,7 @@ describe('Region integration tests', () => {
     it('Should return a list (of locations nearby a point) and correct status code', async () => {
         const response = await initServer
             .get(`/api/regions/coordinates/near`)
-            .send(RegionIntegrationTestMock.listNear);
+            .send(RegionMock.listNear);
 
         expect(response).toBeDefined();
         expect(response.status).toEqual(StatusCodes.OK);
@@ -158,7 +158,7 @@ describe('Region integration tests', () => {
     it('Should return a list (of a specific location from a point) and correct status code', async () => {
         const response = await initServer
             .get(`/api/regions/coordinates/point`)
-            .send(RegionIntegrationTestMock.listPoint);
+            .send(RegionMock.listPoint);
 
         expect(response).toBeDefined();
         expect(response.status).toEqual(StatusCodes.OK);
