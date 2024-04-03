@@ -24,9 +24,12 @@ export class UserLogic {
                         coordinates
                     );
 
-            if (!data.coordinates)
-                data.coordinates =
+            if (!data.coordinates) {
+                const resp =
                     await this.geoService.getCoordinatesFromAddress(address);
+                data.coordinates = resp.geometry.location;
+                data.address = resp.formatted_address;
+            }
 
             return await this.userRepository.create(data);
         } catch (error) {

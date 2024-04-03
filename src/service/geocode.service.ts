@@ -8,9 +8,7 @@ export class GeocodeService {
         this.clientMaps = new Client();
     }
 
-    async getCoordinatesFromAddress(
-        address: string
-    ): Promise<{ lat: number; lng: number }> {
+    async getCoordinatesFromAddress(address: string): Promise<any> {
         try {
             const response = await this.clientMaps.geocode({
                 params: {
@@ -19,7 +17,7 @@ export class GeocodeService {
                 },
             });
 
-            return response.data.results[0].geometry.location;
+            return response.data.results[0];
         } catch (error) {
             console.log(
                 'Error in GeocodeService.getCoordinatesFromAddress',
