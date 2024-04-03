@@ -1,13 +1,13 @@
 import {
-    ListRegionDTO,
-    RegionReqDTO,
+    ListPointRegionDTO,
+    ListNearRegionDTO,
     RegionRespDTO,
     RegionUpdateReqDTO,
 } from '../logic/dto';
 import { RegionModel } from './model';
 
 export class RegionRepository {
-    async create(data: RegionReqDTO): Promise<any> {
+    async create(data: any): Promise<RegionRespDTO> {
         try {
             console.log('Calling RegionRepository.create', data);
 
@@ -69,13 +69,20 @@ export class RegionRepository {
     }
 
     async listNearLocations(
-        data: ListRegionDTO
+        data: ListNearRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
             console.log('Calling RegionRepository.listNearLocations', data);
 
             const result = await RegionModel.find({
-                coordinates: { $near: data.coordinates },
+                location: {
+                    $near: {
+                        $geometry: {
+                            type: 'Polygon',
+                            coordinates: data.coordinates,
+                        },
+                    },
+                },
             });
 
             return result;
@@ -86,12 +93,21 @@ export class RegionRepository {
     }
 
     async listSpecificLocations(
-        data: ListRegionDTO
+        data: ListPointRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
             console.log('Calling RegionRepository.listSpecificLocations', data);
 
-            const result = await RegionModel.find(data);
+            const result = await RegionModel.find({
+                location: {
+                    $geoWithin: {
+                        $geometry: {
+                            type: 'Polygon',
+                            coordinates: [data.coordinates],
+                        },
+                    },
+                },
+            });
 
             return result;
         } catch (error) {

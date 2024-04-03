@@ -127,7 +127,7 @@ export class RegionHandler {
                 payload
             );
 
-            ValidationUtils.validate(RegionSchema.LIST, payload);
+            ValidationUtils.validate(RegionSchema.LIST_NEAR, payload);
 
             const logic = new RegionLogic();
             const response = await logic.listNearLocations(payload);
@@ -153,7 +153,7 @@ export class RegionHandler {
                 payload
             );
 
-            ValidationUtils.validate(RegionSchema.LIST, payload);
+            ValidationUtils.validate(RegionSchema.LIST_POINT, payload);
 
             const logic = new RegionLogic();
             const response = await logic.listSpecificLocations(payload);

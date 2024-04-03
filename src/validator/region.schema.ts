@@ -4,6 +4,11 @@ export const CreateRegionSchema = Joi.object({
     regionId: Joi.number().required(),
     name: Joi.string().required(),
     userId: Joi.number().required(),
+    coordinates: Joi.array()
+        .items(Joi.array().items(Joi.number().required()).min(2).max(2))
+        .min(4)
+        .max(4)
+        .required(),
 }).required();
 
 export const GetRegionSchema = Joi.object({
@@ -19,11 +24,19 @@ export const DeleteRegionSchema = Joi.object({
     id: Joi.number().required(),
 }).required();
 
-export const ListRegionSchema = Joi.object({
+export const ListNearRegionSchema = Joi.object({
     coordinates: Joi.array()
         .items(Joi.number().required())
         .max(2)
         .min(2)
+        .required(),
+});
+
+export const ListPointRegionSchema = Joi.object({
+    coordinates: Joi.array()
+        .items(Joi.array().items(Joi.number().required()).min(2).max(2))
+        .min(4)
+        .max(4)
         .required(),
 });
 
@@ -32,5 +45,6 @@ export const RegionSchema = {
     GET: GetRegionSchema,
     UPDATE: UpdateRegionSchema,
     DELETE: DeleteRegionSchema,
-    LIST: ListRegionSchema,
+    LIST_NEAR: ListNearRegionSchema,
+    LIST_POINT: ListPointRegionSchema,
 };

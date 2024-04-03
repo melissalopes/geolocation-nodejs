@@ -1,7 +1,8 @@
 import * as GeoJson from 'geojson';
 import { RegionRepository, UserRepository } from '../repository';
 import {
-    ListRegionDTO,
+    ListPointRegionDTO,
+    ListNearRegionDTO,
     RegionReqDTO,
     RegionRespDTO,
     RegionUpdateReqDTO,
@@ -30,16 +31,18 @@ export class RegionLogic {
 
             if (!user) throw new NotFound(UserErrorMessagesConstants.NOT_FOUND);
 
-            const region = GeoJson.parse(user.coordinates, {
-                Polygon: ['lat', 'lng'],
+            const region = GeoJson.parse(data, {
+                Polygon: 'coordinates',
             });
 
             return await this.regionRepository.create({
                 regionId,
                 user: user._id,
                 name,
-                type: region.geometry.type,
-                coordinates: region.geometry.coordinates,
+                location: {
+                    type: region.geometry.type,
+                    coordinates: [region.geometry.coordinates],
+                },
             });
         } catch (error) {
             console.log('Error in RegionLogic.create', error);
@@ -107,7 +110,7 @@ export class RegionLogic {
     }
 
     async listNearLocations(
-        data: ListRegionDTO
+        data: ListNearRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
             console.log('Calling RegionLogic.listNearLocations', data);
@@ -126,7 +129,7 @@ export class RegionLogic {
     }
 
     async listSpecificLocations(
-        data: ListRegionDTO
+        data: ListPointRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
             console.log('Calling RegionLogic.listSpecificLocations', data);
