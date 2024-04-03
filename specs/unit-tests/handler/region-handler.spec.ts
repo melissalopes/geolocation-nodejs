@@ -10,7 +10,7 @@ jest.mock('../../../src/logic');
 jest.mock('../../../src/service');
 jest.mock('../../../src/repository');
 
-// ! Implementing tests with Jest
+// ! Example of unit tests with Jest
 describe('Region Handler', () => {
     let mockResponse;
     let mockRequest;
