@@ -12,6 +12,7 @@ import {
     UserErrorMessagesConstants,
     RegionErrorMessagesConstants,
 } from '../constant';
+import logger from '../utils/logger.util';
 
 export class RegionLogic {
     private regionRepository: RegionRepository;
@@ -25,7 +26,7 @@ export class RegionLogic {
     async create(data: RegionReqDTO): Promise<RegionRespDTO> {
         const { regionId, name, userId } = data;
         try {
-            console.log('Calling RegionLogic.create', data);
+            logger.info(`Calling RegionLogic.create. ${JSON.stringify(data)}`);
 
             const user = await this.userRepository.find(userId);
 
@@ -45,14 +46,16 @@ export class RegionLogic {
                 },
             });
         } catch (error) {
-            console.log('Error in RegionLogic.create', error);
+            logger.error('Error in RegionLogic.create', error);
             throw error;
         }
     }
 
     async find(regionId: number): Promise<RegionRespDTO> {
         try {
-            console.log('Calling RegionLogic.find', regionId);
+            logger.info(
+                `Calling RegionLogic.find. ${JSON.stringify(regionId)}`
+            );
 
             const response = await this.regionRepository.find(regionId);
 
@@ -61,25 +64,27 @@ export class RegionLogic {
 
             return response;
         } catch (error) {
-            console.log('Error in RegionLogic.find', error);
+            logger.error('Error in RegionLogic.find', error);
             throw error;
         }
     }
 
     async update(data: RegionUpdateReqDTO): Promise<RegionRespDTO> {
         try {
-            console.log('Calling RegionLogic.update', data);
+            logger.info(`Calling RegionLogic.update. ${JSON.stringify(data)}`);
 
             return await this.regionRepository.update(data);
         } catch (error) {
-            console.log('Error in RegionLogic.update', error);
+            logger.error('Error in RegionLogic.update', error);
             throw error;
         }
     }
 
     async delete(regionId: number): Promise<any> {
         try {
-            console.log('Calling RegionLogic.delete', regionId);
+            logger.info(
+                `Calling RegionLogic.delete. ${JSON.stringify(regionId)}`
+            );
 
             const response = await this.regionRepository.delete(regionId);
 
@@ -88,14 +93,14 @@ export class RegionLogic {
 
             return response;
         } catch (error) {
-            console.log('Error in RegionLogic.delete', error);
+            logger.error('Error in RegionLogic.delete', error);
             throw error;
         }
     }
 
     async list(): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionLogic.list');
+            logger.info('Calling RegionLogic.list');
 
             const response = await this.regionRepository.list();
 
@@ -104,7 +109,7 @@ export class RegionLogic {
 
             return response;
         } catch (error) {
-            console.log('Error in RegionLogic.list', error);
+            logger.error('Error in RegionLogic.list', error);
             throw error;
         }
     }
@@ -113,7 +118,9 @@ export class RegionLogic {
         data: ListNearRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionLogic.listNearLocations', data);
+            logger.info(
+                `Calling RegionLogic.listNearLocations. ${JSON.stringify(data)}`
+            );
 
             const response =
                 await this.regionRepository.listNearLocations(data);
@@ -123,7 +130,7 @@ export class RegionLogic {
 
             return await this.regionRepository.listNearLocations(data);
         } catch (error) {
-            console.log('Error in RegionLogic.listNearLocations', error);
+            logger.error('Error in RegionLogic.listNearLocations', error);
             throw error;
         }
     }
@@ -132,7 +139,9 @@ export class RegionLogic {
         data: ListPointRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionLogic.listSpecificLocations', data);
+            logger.info(
+                `Calling RegionLogic.listSpecificLocations. ${JSON.stringify(data)}`
+            );
 
             const response =
                 await this.regionRepository.listSpecificLocations(data);
@@ -142,7 +151,7 @@ export class RegionLogic {
 
             return await this.regionRepository.listSpecificLocations(data);
         } catch (error) {
-            console.log('Error in RegionLogic.listSpecificLocations', error);
+            logger.error('Error in RegionLogic.listSpecificLocations', error);
             throw error;
         }
     }

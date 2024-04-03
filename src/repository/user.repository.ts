@@ -1,32 +1,37 @@
 import { UserReqDTO, UserRespDTO, UserUpdateReqDTO } from '../logic/dto';
 import { UserModel } from './model';
+import logger from '../utils/logger.util';
 
 export class UserRepository {
     async create(data: UserReqDTO): Promise<UserRespDTO> {
         try {
-            console.log('Calling UserRepository.create', data);
+            logger.info(
+                `Calling UserRepository.create. ${JSON.stringify(data)}`
+            );
 
             return await UserModel.create(data);
         } catch (error) {
-            console.log('Error in UserRepository.create', error);
+            logger.error('Error in UserRepository.create', error);
             throw error;
         }
     }
 
     async find(id: number): Promise<UserRespDTO> {
         try {
-            console.log('Calling UserRepository.find', id);
+            logger.info(`Calling UserRepository.find. ${JSON.stringify(id)}`);
 
             return await UserModel.findOne({ userId: id });
         } catch (error) {
-            console.log('Error in UserRepository.find', error);
+            logger.error('Error in UserRepository.find', error);
             throw error;
         }
     }
 
     async update(data: UserUpdateReqDTO): Promise<any> {
         try {
-            console.log('Calling UserRepository.update', data);
+            logger.info(
+                `Calling UserRepository.update. ${JSON.stringify(data)}`
+            );
 
             return await UserModel.findOneAndUpdate(
                 { userId: data.id },
@@ -34,29 +39,29 @@ export class UserRepository {
                 { new: true }
             );
         } catch (error) {
-            console.log('Error in UserRepository.update', error);
+            logger.error('Error in UserRepository.update', error);
             throw error;
         }
     }
 
     async delete(id: number): Promise<any> {
         try {
-            console.log('Calling UserRepository.delete', id);
+            logger.info(`Calling UserRepository.delete. ${JSON.stringify(id)}`);
 
             return await UserModel.deleteOne({ userId: id });
         } catch (error) {
-            console.log('Error in UserRepository.delete', error);
+            logger.error('Error in UserRepository.delete', error);
             throw error;
         }
     }
 
     async list(): Promise<Array<UserRespDTO>> {
         try {
-            console.log('Calling UserRepository.list');
+            logger.info('Calling UserRepository.list');
 
             return await UserModel.find();
         } catch (error) {
-            console.log('Error in UserRepository.list', error);
+            logger.error('Error in UserRepository.list', error);
             throw error;
         }
     }

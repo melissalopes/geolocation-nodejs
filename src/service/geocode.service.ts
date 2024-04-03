@@ -1,5 +1,6 @@
 import { Client } from '@googlemaps/google-maps-services-js';
 import { GeocodeEnvs } from '../config/envs';
+import logger from '../utils/logger.util';
 
 export class GeocodeService {
     private clientMaps: Client;
@@ -19,7 +20,7 @@ export class GeocodeService {
 
             return response.data.results[0];
         } catch (error) {
-            console.log(
+            logger.error(
                 'Error in GeocodeService.getCoordinatesFromAddress',
                 error
             );
@@ -41,7 +42,7 @@ export class GeocodeService {
 
             return response.data.results[0].formatted_address;
         } catch (error) {
-            console.log(
+            logger.error(
                 'Error in GeocodeService.getAddressFromCoordinates',
                 error
             );

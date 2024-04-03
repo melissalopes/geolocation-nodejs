@@ -1,8 +1,9 @@
 import { UserErrorMessagesConstants } from '../constant';
 import { UserRepository } from '../repository';
 import { GeocodeService } from '../service';
-import { BadRequest, NotFound } from '../utils';
+import { NotFound } from '../utils';
 import { UserReqDTO, UserRespDTO, UserUpdateReqDTO } from './dto';
+import logger from '../utils/logger.util';
 
 export class UserLogic {
     private userRepository: UserRepository;
@@ -16,7 +17,7 @@ export class UserLogic {
     async create(data: UserReqDTO): Promise<UserRespDTO> {
         const { address, coordinates } = data;
         try {
-            console.log('Calling UserLogic.create', data);
+            logger.info(`Calling UserLogic.create. ${JSON.stringify(data)}`);
 
             if (!data.address)
                 data.address =
@@ -33,14 +34,14 @@ export class UserLogic {
 
             return await this.userRepository.create(data);
         } catch (error) {
-            console.log('Error in UserLogic.create', error);
+            logger.error('Error in UserLogic.create', error);
             throw error;
         }
     }
 
     async find(userId: number): Promise<any> {
         try {
-            console.log('Calling UserLogic.find', userId);
+            logger.info(`Calling UserLogic.find. ${JSON.stringify(userId)}`);
 
             const response = await this.userRepository.find(userId);
 
@@ -49,40 +50,40 @@ export class UserLogic {
 
             return response;
         } catch (error) {
-            console.log('Error in UserLogic.find', error);
+            logger.error('Error in UserLogic.find', error);
             throw error;
         }
     }
 
     async update(data: UserUpdateReqDTO): Promise<any> {
         try {
-            console.log('Calling UserLogic.update', data);
+            logger.info(`Calling UserLogic.update. ${JSON.stringify(data)}`);
 
             return await this.userRepository.update(data);
         } catch (error) {
-            console.log('Error in UserLogic.update', error);
+            logger.error('Error in UserLogic.update', error);
             throw error;
         }
     }
 
     async delete(userId: number): Promise<any> {
         try {
-            console.log('Calling UserLogic.delete', userId);
+            logger.info(`Calling UserLogic.delete. ${JSON.stringify(userId)}`);
 
             return await this.userRepository.delete(userId);
         } catch (error) {
-            console.log('Error in UserLogic.delete', error);
+            logger.error('Error in UserLogic.delete', error);
             throw error;
         }
     }
 
     async list(): Promise<Array<UserRespDTO>> {
         try {
-            console.log('Calling UserLogic.list');
+            logger.info('Calling UserLogic.list');
 
             return await this.userRepository.list();
         } catch (error) {
-            console.log('Error in UserLogic.list', error);
+            logger.error('Error in UserLogic.list', error);
             throw error;
         }
     }

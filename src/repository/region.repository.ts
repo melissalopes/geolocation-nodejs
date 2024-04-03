@@ -5,33 +5,38 @@ import {
     RegionUpdateReqDTO,
 } from '../logic/dto';
 import { RegionModel } from './model';
+import logger from '../utils/logger.util';
 
 export class RegionRepository {
     async create(data: any): Promise<RegionRespDTO> {
         try {
-            console.log('Calling RegionRepository.create', data);
+            logger.info(
+                `Calling RegionRepository.create. ${JSON.stringify(data)}`
+            );
 
             return await RegionModel.create(data);
         } catch (error) {
-            console.log('Error in RegionRepository.create', error);
+            logger.error('Error in RegionRepository.create', error);
             throw error;
         }
     }
 
     async find(id: number): Promise<RegionRespDTO> {
         try {
-            console.log('Calling RegionRepository.find', id);
+            logger.info(`Calling RegionRepository.find. ${JSON.stringify(id)}`);
 
             return await RegionModel.findOne({ regionId: id });
         } catch (error) {
-            console.log('Error in RegionRepository.find', error);
+            logger.error('Error in RegionRepository.find', error);
             throw error;
         }
     }
 
     async update(data: RegionUpdateReqDTO): Promise<RegionRespDTO> {
         try {
-            console.log('Calling RegionRepository.update', data);
+            logger.info(
+                `Calling RegionRepository.update. ${JSON.stringify(data)}`
+            );
 
             return await RegionModel.findOneAndUpdate(
                 { regionId: data.id },
@@ -39,31 +44,33 @@ export class RegionRepository {
                 { new: true }
             );
         } catch (error) {
-            console.log('Error in RegionRepository.update', error);
+            logger.error('Error in RegionRepository.update', error);
             throw error;
         }
     }
 
     async delete(id: number): Promise<any> {
         try {
-            console.log('Calling RegionRepository.delete', id);
+            logger.info(
+                `Calling RegionRepository.delete. ${JSON.stringify(id)}`
+            );
 
             return await RegionModel.deleteOne({ regionId: id });
         } catch (error) {
-            console.log('Error in RegionRepository.delete', error);
+            logger.error('Error in RegionRepository.delete', error);
             throw error;
         }
     }
 
     async list(): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionRepository.list');
+            logger.info('Calling RegionRepository.list');
 
             const result = await RegionModel.find();
 
             return result;
         } catch (error) {
-            console.log('Error in RegionRepository.list', error);
+            logger.error('Error in RegionRepository.list', error);
             throw error;
         }
     }
@@ -72,7 +79,9 @@ export class RegionRepository {
         data: ListNearRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionRepository.listNearLocations', data);
+            logger.info(
+                `Calling RegionRepository.listNearLocations. ${JSON.stringify(data)}`
+            );
 
             const result = await RegionModel.find({
                 location: {
@@ -87,7 +96,7 @@ export class RegionRepository {
 
             return result;
         } catch (error) {
-            console.log('Error in RegionRepository.listNearLocations', error);
+            logger.error('Error in RegionRepository.listNearLocations', error);
             throw error;
         }
     }
@@ -96,7 +105,9 @@ export class RegionRepository {
         data: ListPointRegionDTO
     ): Promise<Array<RegionRespDTO>> {
         try {
-            console.log('Calling RegionRepository.listSpecificLocations', data);
+            logger.info(
+                `Calling RegionRepository.listSpecificLocations. ${JSON.stringify(data)}`
+            );
 
             const result = await RegionModel.find({
                 location: {
@@ -111,7 +122,7 @@ export class RegionRepository {
 
             return result;
         } catch (error) {
-            console.log(
+            logger.error(
                 'Error in RegionRepository.listSpecificLocations',
                 error
             );

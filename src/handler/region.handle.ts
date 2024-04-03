@@ -3,12 +3,15 @@ import { RegionLogic } from '../logic';
 import { RegionSchema } from '../validator';
 import { ValidationUtils } from '../utils';
 import { RegionSuccessMessagesConstants } from '../constant';
+import logger from '../utils/logger.util';
 
 export class RegionHandler {
     public async createHandle(req, res): Promise<void> {
         const payload = req.body;
         try {
-            console.log('Calling RegionHandler.createHandle', payload);
+            logger.info(
+                `Calling RegionHandler.createHandle. ${JSON.stringify(payload)}`
+            );
 
             ValidationUtils.validate(RegionSchema.CREATE, payload);
 
@@ -16,11 +19,11 @@ export class RegionHandler {
             const response = await logic.create(payload);
 
             const message = RegionSuccessMessagesConstants.CREATED;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.CREATED).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.createHandle', error);
+            logger.error('Error in RegionHandler.createHandle', error);
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -31,7 +34,9 @@ export class RegionHandler {
     public async getHandle(req, res): Promise<void> {
         const payload = req.params;
         try {
-            console.log('Calling RegionHandler.getHandle', payload);
+            logger.info(
+                `Calling RegionHandler.getHandle. ${JSON.stringify(payload)}`
+            );
 
             ValidationUtils.validate(RegionSchema.GET, payload);
 
@@ -39,11 +44,11 @@ export class RegionHandler {
             const response = await logic.find(payload.id);
 
             const message = RegionSuccessMessagesConstants.FOUND;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.OK).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.getHandle', error);
+            logger.error('Error in RegionHandler.getHandle', error);
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -56,7 +61,9 @@ export class RegionHandler {
         const { body } = req;
         try {
             const payload = { ...body, id };
-            console.log('Calling RegionHandler.updateHandle', payload);
+            logger.info(
+                `Calling RegionHandler.updateHandle. ${JSON.stringify(payload)}`
+            );
 
             ValidationUtils.validate(RegionSchema.UPDATE, payload);
 
@@ -64,11 +71,11 @@ export class RegionHandler {
             const response = await logic.update(payload);
 
             const message = RegionSuccessMessagesConstants.UPDATED;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.CREATED).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.updateHandle', error);
+            logger.error('Error in RegionHandler.updateHandle', error);
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -79,7 +86,9 @@ export class RegionHandler {
     public async deleteHandle(req, res): Promise<void> {
         const payload = req.params;
         try {
-            console.log('Calling RegionHandler.deleteHandle', payload);
+            logger.info(
+                `Calling RegionHandler.deleteHandle. ${JSON.stringify(payload)}`
+            );
 
             ValidationUtils.validate(RegionSchema.DELETE, payload);
 
@@ -87,11 +96,11 @@ export class RegionHandler {
             const response = await logic.delete(payload.id);
 
             const message = RegionSuccessMessagesConstants.DELETED;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.OK).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.deleteHandle', error);
+            logger.error('Error in RegionHandler.deleteHandle', error);
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -101,17 +110,17 @@ export class RegionHandler {
 
     public async getAllHandle(req, res): Promise<void> {
         try {
-            console.log('Calling RegionHandler.getAllHandle');
+            logger.info('Calling RegionHandler.getAllHandle');
 
             const logic = new RegionLogic();
             const response = await logic.list();
 
             const message = RegionSuccessMessagesConstants.FOUND_LIST;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.OK).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.getAllHandle', error);
+            logger.error('Error in RegionHandler.getAllHandle', error);
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -122,9 +131,8 @@ export class RegionHandler {
     public async getNearLocationsHandle(req, res): Promise<void> {
         const payload = req.body;
         try {
-            console.log(
-                'Calling RegionHandler.getNearLocationsHandle',
-                payload
+            logger.info(
+                `Calling RegionHandler.getNearLocationsHandle. ${JSON.stringify(payload)}`
             );
 
             ValidationUtils.validate(RegionSchema.LIST_NEAR, payload);
@@ -133,11 +141,14 @@ export class RegionHandler {
             const response = await logic.listNearLocations(payload);
 
             const message = RegionSuccessMessagesConstants.FOUND_LIST;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.OK).json({ message, response });
         } catch (error) {
-            console.log('Error in RegionHandler.getNearLocationsHandle', error);
+            logger.error(
+                'Error in RegionHandler.getNearLocationsHandle',
+                error
+            );
 
             res.status(error.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error.message,
@@ -148,9 +159,8 @@ export class RegionHandler {
     public async getSpecificLocationsHandle(req, res): Promise<void> {
         const payload = req.body;
         try {
-            console.log(
-                'Calling RegionHandler.getSpecificLocationsHandle',
-                payload
+            logger.info(
+                `Calling RegionHandler.getSpecificLocationsHandle. ${JSON.stringify(payload)}`
             );
 
             ValidationUtils.validate(RegionSchema.LIST_POINT, payload);
@@ -159,11 +169,11 @@ export class RegionHandler {
             const response = await logic.listSpecificLocations(payload);
 
             const message = RegionSuccessMessagesConstants.FOUND_LIST;
-            console.log(`${message}`, response);
+            logger.info(`${message} ${JSON.stringify(response)}`);
 
             res.status(StatusCodes.OK).json({ message, response });
         } catch (error) {
-            console.log(
+            logger.error(
                 'Error in RegionHandler.getSpecificLocationsHandle',
                 error
             );
