@@ -3,9 +3,7 @@ import * as Joi from 'joi';
 export const CreateUserSchema = Joi.object({
     userId: Joi.number().required(),
     name: Joi.string().required(),
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com'] } })
-        .required(),
+    email: Joi.string().email({ minDomainSegments: 2 }).required(),
     address: Joi.when('coordinates', {
         is: Joi.exist(),
         then: Joi.forbidden(),
