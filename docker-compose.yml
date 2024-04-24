@@ -4,11 +4,11 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongodb-technical-volume:/data/db
+      - mongodb-volume:/data/db
     restart: always
 
   api:
-    container_name: api-technical-assessment
+    container_name: api-geolocation
     build: .
     restart: always
     ports:
@@ -19,4 +19,4 @@ services:
       - .env
 
 volumes:
-  mongodb-technical-volume:
+  mongodb-volume:

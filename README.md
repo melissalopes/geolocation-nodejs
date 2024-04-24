@@ -47,3 +47,36 @@ Este é um projeto que simula um cenário real, onde desenvolvi uma API RESTful 
 ### Testes
 
 -   Unitários e de integração.
+
+
+## 🖥️ Installation
+
+1. Clone this repo
+```bash
+git clone https://github.com/melissalopes/geolocation-nodejs.git
+```
+
+### Backend
+
+!. You will need:
+
+- a google api key to run these api
+
+!. You can run:
+
+- mongo url in mongoDBCompass to see all registers
+
+1. Install dependencies
+```bash
+npm install
+```
+
+2. Run build
+```bash
+npm run build
+```
+
+3. Run docker compose
+```bash
+docker-compose up -d 
+```
